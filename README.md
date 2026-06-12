@@ -22,3 +22,7 @@
 
 
 ## 6. Interacción limitada en las canciones
+
+
+## 7.  pantalla de misiones sin identificacion 
+
