@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mi_primer_proyecto/providers/auth_provider.dart';
+import 'package:mi_primer_proyecto/screens/remote_missions_screen.dart';
 import 'package:mi_primer_proyecto/screens/search_screen.dart';
 import 'package:mi_primer_proyecto/screens/favourites_screen.dart';
 import 'package:mi_primer_proyecto/screens/profile_screen.dart';
@@ -21,6 +22,7 @@ class _MainScreenState extends State<MainScreen> {
     const SearchScreen(),
     const FavouritesScreen(),
     const ProfileScreen(),
+    const RemoteMissionsScreen(),
   ];
 
   @override
@@ -69,10 +71,9 @@ class _MainScreenState extends State<MainScreen> {
         ),
       );
     }
-    
+
     return Scaffold(
       body: IndexedStack(
-        // Mantener el estado de las pantallas aunque se cambie de screen
         index: _currentIndex,
         children: _pages,
       ),
@@ -81,13 +82,23 @@ class _MainScreenState extends State<MainScreen> {
         children: [
           const MiniPlayer(),
           BottomNavigationBar(
+            type: BottomNavigationBarType
+                .fixed, 
+            backgroundColor: Theme.of(
+              context,
+            ).colorScheme.surface, 
+            selectedItemColor: Theme.of(
+              context,
+            ).colorScheme.primary,
+            unselectedItemColor: Colors.grey,
             currentIndex: _currentIndex,
             onTap: (index) => setState(() => _currentIndex = index),
-            items: [
+            items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.search),
                 label: "Buscar",
               ),
+              BottomNavigationBarItem(icon: Icon(Icons.web), label: "Misiones"),
               BottomNavigationBarItem(
                 icon: Icon(Icons.favorite),
                 label: "Favoritos",

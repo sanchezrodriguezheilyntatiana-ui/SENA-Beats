@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mi_primer_proyecto/providers/auth_provider.dart';
+import 'package:mi_primer_proyecto/screens/track_detail_screen.dart';
 import 'package:provider/provider.dart';
 import '../services/music_service.dart';
 import '../providers/favourites_provider.dart';
@@ -121,34 +122,36 @@ class _SearchScreenState extends State<SearchScreen> {
                   button: true,
                   child: ListTile(
                     leading: GestureDetector(
-                      // 5. Llamamos al método global. Esto activará la vibración y la barra fija.
-                      onTap: () => musicProvider.playTrack(track),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(4),
-                            child: Image.network(
-                              track.image,
-                              width: 50,
-                              height: 50,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) =>
-                                  const Icon(
-                                    Icons.music_note,
-                                    color: Colors.grey,
-                                  ),
-                            ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => TrackDetailScreen(track: track),
                           ),
-                          // El icono ahora refleja el estado GLOBAL
-                          Icon(
-                            isPlaying
-                                ? Icons.pause_circle
-                                : Icons.play_circle_fill,
-                            color: Colors.white,
-                            size: 40,
+                        );
+                      },
+                      child: Hero(
+                        tag: 'avatar-${track.id}',
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.network(
+                            track.image,
+                            width: 50,
+                            height: 50,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                width: 50,
+                                height: 50,
+                                color: Colors.grey[800],
+                                child: const Icon(
+                                  Icons.broken_image,
+                                  color: Colors.white54,
+                                ),
+                              );
+                            },
                           ),
-                        ],
+                        ),
                       ),
                     ),
                     title: Text(
