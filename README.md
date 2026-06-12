@@ -26,3 +26,5 @@
 
 ## 7.  pantalla de misiones sin identificacion 
 
+
+## 8. no se reproducen los favoritos 
